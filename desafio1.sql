@@ -9,8 +9,8 @@ CREATE DATABASE SpotifyClone;
 CREATE TABLE SpotifyClone.planos( 
   plano_id INT PRIMARY KEY AUTO_INCREMENT,
   plano_tipo varchar(20) NOT NULL,
-  plano_valor decimal(5,2) NOT NULL,
-) ENGINE=InnoDB;
+  plano_valor decimal(5,2) NOT NULL
+  ) engine = InnoDB;
 
 -------------
 -- Table SpotifyClone.usuario
@@ -23,7 +23,7 @@ CREATE TABLE SpotifyClone.usuario(
   plano_id INT NOT NULL,
   data_assinatura DATE NOT NULL,
   FOREIGN KEY (plano_id) REFERENCES SpotifyClone.planos(plano_id)
-) ENGINE=InnoDB;
+) engine = InnoDB;
 
 --------------
 -- Table SpotifyClone.artistas
@@ -31,8 +31,8 @@ CREATE TABLE SpotifyClone.usuario(
 
 CREATE TABLE SpotifyClone.artistas(
   artista_id INT PRIMARY KEY AUTO_INCREMENT,
-  artista_nome varchar(80) NOT NULL,
-) ENGINE=InnoDB;
+  artista_nome varchar(80) NOT NULL
+) engine = InnoDB;
 
 --------------
 -- Table SpotifyClone.albuns
@@ -44,7 +44,7 @@ CREATE TABLE SpotifyClone.albuns(
   artista_id int NOT NULL,
   ano_lancamento INT NOT NULL,
   FOREIGN KEY (artista_id) REFERENCES SpotifyClone.artistas(artista_id)
-) ENGINE=InnoDB;
+) engine = InnoDB;
 
 --------------
 -- Table SpotifyClone.musicas
@@ -56,7 +56,7 @@ CREATE TABLE SpotifyClone.musicas(
   album_id INT NOT NULL,
   duracao_segundos INT NOT NULL,
   FOREIGN KEY (album_id) REFERENCES SpotifyClone.albuns(album_id)
-) ENGINE=InnoDB;
+) engine = InnoDB;
 
 -------------------
 -- Table SpotifyClone.historico_reproducao
@@ -100,7 +100,7 @@ VALUES
 -- Dumping data for table SpotifyClone.usuario
 -------------------
 
-INSERT INTO SpotifyClone.usuario (usuario_id, nome, idade, plano_id, data_assinatura) 
+INSERT INTO SpotifyClone.usuario (nome, idade, plano_id, data_assinatura) 
 VALUES
 ("Thati", 23, 1, "2019-10-20"),
 ("Cintia", 35, 2, "2017-12-30"),
