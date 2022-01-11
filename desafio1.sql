@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS SpotifyClone;
-
 CREATE DATABASE SpotifyClone;
 
 -------------
@@ -70,7 +68,7 @@ CREATE TABLE SpotifyClone.historico_reproducao(
   PRIMARY KEY (historico_id, usuario_id),
   FOREIGN KEY (usuario_id) REFERENCES SpotifyClone.usuario(usuario_id),
   FOREIGN KEY (musica_id) REFERENCES SpotifyClone.musicas(musica_id)
-) ENGINE=InnoDB;
+) engine = InnoDB;
 
 --------------
 -- Table SpotifyClone.seguindo_artistas
@@ -82,7 +80,7 @@ CREATE TABLE SpotifyClone.seguindo_artistas(
   PRIMARY KEY (seguindo_id, artista_id),
   FOREIGN KEY (seguindo_id) REFERENCES SpotifyClone.usuario(usuario_id),
   FOREIGN KEY (artista_id) REFERENCES SpotifyClone.artistas(artista_id)
-) ENGINE=InnoDB;
+) engine = InnoDB;
 
 
 -------------------
