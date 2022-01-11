@@ -160,7 +160,7 @@ INSERT INTO SpotifyClone.musicas (musica_id, musica_titulo, album_id, duracao_se
 (40, "You Make Me Feel So..", 10, 83);
 
 -------------------
--- Table SpotifyClone.historico_reproducao
+-- SpotifyClone.historico_reproducao
 -------------------
 
 CREATE TABLE SpotifyClone.historico_reproducao(
