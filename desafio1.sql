@@ -1,12 +1,9 @@
 CREATE DATABASE IF NOT EXISTS SpotifyClone;
-
-USE SpotifyClone;
-
 -------------
 -- Table SpotifyClone.planos
 -------------
 
-CREATE TABLE IF NOT EXISTS planos ( 
+CREATE TABLE IF NOT EXISTS SpotifyClone.planos ( 
   plano_id INT NOT NULL AUTO_INCREMENT,
   plano_tipo varchar(20) NOT NULL,
   plano_valor decimal(10,2) NOT NULL,
@@ -17,21 +14,21 @@ CREATE TABLE IF NOT EXISTS planos (
 -- Table SpotifyClone.usuario
 -------------
 
-CREATE TABLE IF NOT EXISTS usuario (
+CREATE TABLE IF NOT EXISTS SpotifyClone.usuario (
   usuario_id INT NOT NULL AUTO_INCREMENT,
   nome varchar(80) NOT NULL,
   idade INT NOT NULL,
   plano_id INT NOT NULL,
   data_assinatura DATE NOT NULL,
   PRIMARY KEY (usuario_id),
-  FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
+  FOREIGN KEY (plano_id) REFERENCES SpotifyClone.planos(plano_id)
 ) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.artistas
 --------------
 
-CREATE TABLE IF NOT EXISTS artistas (
+CREATE TABLE IF NOT EXISTS SpotifyClone.artistas (
   artista_id INT NOT NULL AUTO_INCREMENT,
   artista_nome varchar(80) NOT NULL,
   PRIMARY KEY (artista_id)
@@ -41,52 +38,52 @@ CREATE TABLE IF NOT EXISTS artistas (
 -- Table SpotifyClone.albuns
 --------------
 
-CREATE TABLE IF NOT EXISTS albuns (
+CREATE TABLE IF NOT EXISTS SpotifyClone.albuns (
   album_id INT NOT NULL AUTO_INCREMENT,
   album_titulo varchar(255) NOT NULL,
   artista_id int NOT NULL,
   ano_lancamento INT NOT NULL,
   PRIMARY KEY (album_id),
-  FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
+  FOREIGN KEY (artista_id) REFERENCES SpotifyClone.artistas(artista_id)
 ) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.musicas
 --------------
 
-CREATE TABLE IF NOT EXISTS musicas (
+CREATE TABLE IF NOT EXISTS SpotifyClone.musicas (
   musica_id INT NOT NULL AUTO_INCREMENT,
   musica_titulo varchar(255) NOT NULL,
   album_id INT NOT NULL,
   duracao_segundos INT NOT NULL,
   PRIMARY KEY (musica_id),
-  FOREIGN KEY (album_id) REFERENCES albuns(album_id)
+  FOREIGN KEY (album_id) REFERENCES SpotifyClone.albuns(album_id)
 ) ENGINE=InnoDB;
 
 -------------------
 -- Table SpotifyClone.historico_reproducao
 -------------------
 
-CREATE TABLE IF NOT EXISTS historico_reproducao (
+CREATE TABLE IF NOT EXISTS SpotifyClone.historico_reproducao (
   historico_id INT NOT NULL AUTO_INCREMENT,
   usuario_id INT NOT NULL,
   musica_id INT NOT NULL,
   data_reproducao DATETIME NOT NULL,
   PRIMARY KEY (historico_id, usuario_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
-  FOREIGN KEY (musica_id) REFERENCES musicas(musica_id)
+  FOREIGN KEY (usuario_id) REFERENCES SpotifyClone.usuario(usuario_id),
+  FOREIGN KEY (musica_id) REFERENCES SpotifyClone.musicas(musica_id)
 ) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.seguindo_artistas
 --------------
 
-CREATE TABLE IF NOT EXISTS seguindo_artistas (
+CREATE TABLE IF NOT EXISTS SpotifyClone.seguindo_artistas (
   seguindo_id INT NOT NULL AUTO_INCREMENT,
   artista_id INT NOT NULL,
   PRIMARY KEY (seguindo_id, artista_id),
-  FOREIGN KEY (seguindo_id) REFERENCES usuario(usuario_id),
-  FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
+  FOREIGN KEY (seguindo_id) REFERENCES SpotifyClone.usuario(usuario_id),
+  FOREIGN KEY (artista_id) REFERENCES SpotifyClone.artistas(artista_id)
 ) ENGINE=InnoDB;
 
 
@@ -94,7 +91,7 @@ CREATE TABLE IF NOT EXISTS seguindo_artistas (
 -- Dumping data for table SpotifyClone.planos
 -------------------
 
-INSERT INTO planos (plano_id, plano_tipo, plano_valor) VALUES
+INSERT INTO SpotifyClone.planos (plano_id, plano_tipo, plano_valor) VALUES
 (1, "gratuito", 0.00),
 (2, "universitário", 5.99),
 (3, "pessoal", 6.99),
@@ -104,7 +101,7 @@ INSERT INTO planos (plano_id, plano_tipo, plano_valor) VALUES
 -- Dumping data for table SpotifyClone.usuario
 -------------------
 
-INSERT INTO usuario (usuario_id, nome, idade, plano_id, data_assinatura) VALUES
+INSERT INTO SpotifyClone.usuario (usuario_id, nome, idade, plano_id, data_assinatura) VALUES
 (1, "Thati", 23, 1, "2019-10-20"),
 (2, "Cintia", 35, 4, "2017-12-30"),
 (3, "Bill", 20, 2, "2019-06-05"),
@@ -120,7 +117,7 @@ INSERT INTO usuario (usuario_id, nome, idade, plano_id, data_assinatura) VALUES
 -- Dumping data for table SpotifyClone.artistas
 -------------------
 
-INSERT INTO artistas (artista_id, artista_nome) VALUES
+INSERT INTO SpotifyClone.artistas (artista_id, artista_nome) VALUES
 (1, "Walter Phoenix"),
 (2, "Peter Strong"),
 (3, "Lance Day"),
@@ -132,7 +129,7 @@ INSERT INTO artistas (artista_id, artista_nome) VALUES
 -- Dumping data for table SpotifyClone.albuns
 -------------------
 
-INSERT INTO albuns (album_id, album_titulo, artista_id, ano_lancamento) VALUES
+INSERT INTO SpotifyClone.albuns (album_id, album_titulo, artista_id, ano_lancamento) VALUES
 (1, "Envious", 1, 1990),
 (2, "Exuberant", 1, 1993),
 (3, "Hallowed Steam", 2, 1995),
@@ -148,7 +145,7 @@ INSERT INTO albuns (album_id, album_titulo, artista_id, ano_lancamento) VALUES
 -- Dumping data for table SpotifyClone.musicas
 -------------------
 
-INSERT INTO musicas (musica_id, musica_titulo, album_id, duracao_segundos) VALUES
+INSERT INTO SpotifyClone.musicas (musica_id, musica_titulo, album_id, duracao_segundos) VALUES
 (1, "Soul For Us", 1, 200),
 (2, "Reflections Of Magic", 1, 163),
 (3, "Dance With Her Own", 1, 116),
@@ -194,7 +191,7 @@ INSERT INTO musicas (musica_id, musica_titulo, album_id, duracao_segundos) VALUE
 -- Dumping data for table SpotifyClone.historico_reproducao
 -------------------
 
-INSERT INTO historico_reproducao (usuario_id, musica_id, data_reproducao) VALUES
+INSERT INTO SpotifyClone.historico_reproducao (usuario_id, musica_id, data_reproducao) VALUES
 (1, 36, "2020-02-28 10:45:55"),
 (1, 25, "2020-05-02 05:30:35"),
 (1, 23, "2020-03-06 11:22:33"),
@@ -238,7 +235,7 @@ INSERT INTO historico_reproducao (usuario_id, musica_id, data_reproducao) VALUES
 -- Dumping data for table SpotifyClone.seguindo_artistas
 -------------------
 
-INSERT INTO seguindo_artistas (seguindo_id, artista_id) VALUES
+INSERT INTO SpotifyClone.seguindo_artistas (seguindo_id, artista_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
