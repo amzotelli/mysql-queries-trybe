@@ -175,7 +175,7 @@ CREATE TABLE SpotifyClone.seguindo_artistas(
   PRIMARY KEY (seguindo_id, artista_id),
   FOREIGN KEY (seguindo_id) REFERENCES SpotifyClone.usuario(usuario_id),
   FOREIGN KEY (artista_id) REFERENCES SpotifyClone.artistas(artista_id)
-) engine = InnoDB;
+) ENGINE=InnoDB;
 
 INSERT INTO SpotifyClone.seguindo_artistas (seguindo_id, artista_id) VALUES
 (1, 1),
