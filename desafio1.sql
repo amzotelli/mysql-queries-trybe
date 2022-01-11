@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS planos (
   plano_tipo varchar(20) NOT NULL,
   plano_valor decimal(10,2) NOT NULL,
   PRIMARY KEY (plano_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 -------------
 -- Table SpotifyClone.usuario
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   data_assinatura DATE NOT NULL,
   PRIMARY KEY (usuario_id),
   FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.artistas
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS artistas (
   artista_id INT NOT NULL AUTO_INCREMENT,
   artista_nome varchar(80) NOT NULL,
   PRIMARY KEY (artista_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.albuns
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS albuns (
   ano_lancamento INT NOT NULL,
   PRIMARY KEY (album_id),
   FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.musicas
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS musicas (
   duracao_segundos INT NOT NULL,
   PRIMARY KEY (musica_id),
   FOREIGN KEY (album_id) REFERENCES albuns(album_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 -------------------
 -- Table SpotifyClone.historico_reproducao
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS historico_reproducao (
   PRIMARY KEY (historico_id, usuario_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
   FOREIGN KEY (musica_id) REFERENCES musicas(musica_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 --------------
 -- Table SpotifyClone.seguindo_artistas
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS seguindo_artistas (
   PRIMARY KEY (seguindo_id, artista_id),
   FOREIGN KEY (seguindo_id) REFERENCES usuario(usuario_id),
   FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB;
 
 
 -------------------
