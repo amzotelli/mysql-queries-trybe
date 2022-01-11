@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS historico_reproducao (
   usuario_id INT NOT NULL,
   musica_id INT NOT NULL,
   data_reproducao DATETIME NOT NULL,
-  PRIMARY KEY (historico_id),
+  PRIMARY KEY (historico_id, usuario_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
   FOREIGN KEY (musica_id) REFERENCES musicas(musica_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS historico_reproducao (
 CREATE TABLE IF NOT EXISTS seguindo_artistas (
   usuario_id INT NOT NULL,
   artista_id INT NOT NULL,
+  PRIMARY KEY (usuario_id, artista_id),
   FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
   FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
