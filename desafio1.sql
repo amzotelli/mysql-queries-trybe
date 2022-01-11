@@ -82,10 +82,10 @@ CREATE TABLE IF NOT EXISTS historico_reproducao (
 --------------
 
 CREATE TABLE IF NOT EXISTS seguindo_artistas (
-  usuario_id INT NOT NULL,
+  seguindo_id INT NOT NULL AUTO_INCREMENT,
   artista_id INT NOT NULL,
-  PRIMARY KEY (usuario_id, artista_id),
-  FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
+  PRIMARY KEY (seguindo_id, artista_id),
+  FOREIGN KEY (seguindo_id) REFERENCES usuario(usuario_id),
   FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -238,7 +238,7 @@ INSERT INTO historico_reproducao (usuario_id, musica_id, data_reproducao) VALUES
 -- Dumping data for table SpotifyClone.seguindo_artistas
 -------------------
 
-INSERT INTO seguindo_artistas (usuario_id, artista_id) VALUES
+INSERT INTO seguindo_artistas (seguindo_id, artista_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
