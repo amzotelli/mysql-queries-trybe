@@ -1,97 +1,93 @@
-DROP DATABASE IF EXISTS SpotifyClone;
+CREATE DATABASE IF NOT EXISTS SpotifyClone;
 
-CREATE database IF NOT EXISTS 'SpotifyClone' 
-DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-
-USE 'SpotifyClone';
+USE SpotifyClone;
 
 -------------
 -- Table SpotifyClone.planos
 -------------
 
 CREATE TABLE IF NOT EXISTS planos ( 
-  plano_id int(20) NOT NULL AUTO_INCREMENT,
+  plano_id INT NOT NULL AUTO_INCREMENT,
   plano_tipo varchar(20) NOT NULL,
   plano_valor decimal(10,2) NOT NULL,
-  PRIMARY KEY ('plano_id')
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (plano_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -------------
 -- Table SpotifyClone.usuario
 -------------
 
 CREATE TABLE IF NOT EXISTS usuario (
-  usuario_id int(20) NOT NULL AUTO_INCREMENT,
+  usuario_id INT NOT NULL AUTO_INCREMENT,
   nome varchar(80) NOT NULL,
-  idade int(3) NOT NULL,
-  plano_id int(20) NOT NULL,
-  data_assinatura date NOT NULL,
-  PRIMARY KEY ('usuario_id'),
-  FOREIGN KEY ('plano_id') REFERENCES SpotifyClone.plano (plano_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  idade INT NOT NULL,
+  plano_id INT NOT NULL,
+  data_assinatura DATE NOT NULL,
+  PRIMARY KEY (usuario_id),
+  FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --------------
 -- Table SpotifyClone.artistas
 --------------
 
 CREATE TABLE IF NOT EXISTS artistas (
-  artista_id int(20) NOT NULL AUTO_INCREMENT,
+  artista_id INT NOT NULL AUTO_INCREMENT,
   artista_nome varchar(80) NOT NULL,
-  PRIMARY KEY ('artista_id')
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+  PRIMARY KEY (artista_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --------------
 -- Table SpotifyClone.albuns
 --------------
 
 CREATE TABLE IF NOT EXISTS albuns (
-  album_id int(20) NOT NULL AUTO_INCREMENT,
+  album_id INT NOT NULL AUTO_INCREMENT,
   album_titulo varchar(255) NOT NULL,
   artista_id int NOT NULL,
   ano_lancamento INT NOT NULL,
-  PRIMARY KEY ('album_id'),
-  FOREIGN KEY ('artista_id') REFERENCES SpotifyClone.artistas (artista_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+  PRIMARY KEY (album_id),
+  FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --------------
 -- Table SpotifyClone.musicas
 --------------
 
 CREATE TABLE IF NOT EXISTS musicas (
-  musica_id int(20) NOT NULL AUTO_INCREMENT,
+  musica_id INT NOT NULL AUTO_INCREMENT,
   musica_titulo varchar(255) NOT NULL,
-  album_id int NOT NULL,
-  duracao_segundos int(3) NOT NULL,
-  PRIMARY KEY ('musica_id'),
-  FOREIGN KEY ('album_id') REFERENCES SpotifyClone.albuns (album_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---------------
--- Table SpotifyClone.seguindo_artistas
---------------
-
-CREATE TABLE IF NOT EXISTS seguindo_artistas (
-  'usuario_id' int NOT NULL,
-  'artista_id' int NOT NULL,
-  FOREIGN KEY ('usuario_id') REFERENCES 'SpotifyClone'.'usuario'('usuario_id'),
-  FOREIGN KEY ('artista_id') REFERENCES 'SpotifyClone'.'artistas'('artista_id')
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  album_id INT NOT NULL,
+  duracao_segundos INT NOT NULL,
+  PRIMARY KEY (musica_id),
+  FOREIGN KEY (album_id) REFERENCES albuns(album_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -------------------
 -- Table SpotifyClone.historico_reproducao
 -------------------
 
 CREATE TABLE IF NOT EXISTS historico_reproducao (
-  historico_id int(20) NOT NULL AUTO_INCREMENT,
-  usuario_id int NOT NULL,
-  musica_id int NOT NULL,
-  data_reproducao date NOT NULL,
-  PRIMARY KEY ('historico_id'),
-  FOREIGN KEY ('usuario_id') REFERENCES 'SpotifyClone'.'usuario'('usuario_id'),
-  FOREIGN KEY ('musica_id') REFERENCES 'SpotifyClone'.'musicas'('musica_id')
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  historico_id INT NOT NULL AUTO_INCREMENT,
+  usuario_id INT NOT NULL,
+  musica_id INT NOT NULL,
+  data_reproducao DATETIME NOT NULL,
+  PRIMARY KEY (historico_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
+  FOREIGN KEY (musica_id) REFERENCES musicas(musica_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--------------
+-- Table SpotifyClone.seguindo_artistas
+--------------
+
+CREATE TABLE IF NOT EXISTS seguindo_artistas (
+  usuario_id INT NOT NULL,
+  artista_id INT NOT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id),
+  FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -------------------
 -- Dumping data for table SpotifyClone.planos
@@ -194,38 +190,10 @@ INSERT INTO musicas (musica_id, musica_titulo, album_id, duracao_segundos) VALUE
 (40, "You Make Me Feel So..", 10, 83);
 
 -------------------
--- Dumping data for table SpotifyClone.seguindo_artistas
--------------------
-
-INSERT INTO seguindo_artistas (usuario_id, artista_id) VALUES
-(1, 1),
-(1, 3),
-(1, 4),
-(2, 1),
-(2, 3),
-(3, 1),
-(3, 2),
-(4, 4),
-(5, 5),
-(5, 6),
-(6, 1),
-(6, 3),
-(6, 6),
-(7, 2),
-(7, 5),
-(8, 1),
-(8, 5),
-(9, 3),
-(9, 4),
-(9, 6),
-(10, 2),
-(10, 6);
-
--------------------
 -- Dumping data for table SpotifyClone.historico_reproducao
 -------------------
 
-INSERT INTO historico_reproducao (historico_id, usuario_id  musica_id, data_reproducao) VALUES 
+INSERT INTO historico_reproducao (usuario_id, musica_id, data_reproducao) VALUES
 (1, 36, "2020-02-28 10:45:55"),
 (1, 25, "2020-05-02 05:30:35"),
 (1, 23, "2020-03-06 11:22:33"),
@@ -264,3 +232,31 @@ INSERT INTO historico_reproducao (historico_id, usuario_id  musica_id, data_repr
 (10, 21, "2017-12-04 05:33:43"),
 (10, 12, "2017-07-27 05:24:49"),
 (10, 13, "2017-12-25 01:03:57");
+    
+-------------------
+-- Dumping data for table SpotifyClone.seguindo_artistas
+-------------------
+
+INSERT INTO seguindo_artistas (usuario_id, artista_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 3),
+(3, 1),
+(3, 4),
+(4, 2),
+(5, 5),
+(5, 6),
+(6, 1),
+(6, 3),
+(6, 6),
+(7, 4),
+(7, 5),
+(8, 1),
+(8, 5),
+(9, 2),
+(9, 3),
+(9, 6),
+(10, 4),
+(10, 6);
